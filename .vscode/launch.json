@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-TeamMicroServiciesGftApplication<TeamMicroServiciesGFT>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "MicroServiciesGFT.TeamMicroServiciesGFT.TeamMicroServiciesGftApplication",
+            "projectName": "TeamMicroServiciesGFT",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}
