@@ -28,12 +28,9 @@ public class CartServiceTest {
 
     @BeforeEach
     void setup() {
-        List<Product> products = new ArrayList<>(){{
-            add (new Product("Iphone"));
-            add (new Product("Mac"));
-        }};
-        carts.add(new Cart(3, 5, products));
-        carts.add(new Cart(1, 4, products));
+
+        carts.add(new Cart(3, 5, "product 1"));
+        carts.add(new Cart(1, 4, "product 2"));
         when(cartRepository.findAll()).thenReturn(carts);
     }
 
