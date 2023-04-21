@@ -1,4 +1,4 @@
-package microservicesgft.teammicroservicesgft;
+package microservicesgft.teammicroservicesgft.services;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.mockito.Mockito.when;

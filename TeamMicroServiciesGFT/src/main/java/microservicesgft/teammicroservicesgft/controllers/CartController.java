@@ -23,7 +23,7 @@ public class CartController {
     }
 
     @GetMapping("api/cart")
-    ResponseEntity<List<Cart>> returningAllCarts (){
+    public ResponseEntity<List<Cart>> returningAllCarts (){
         return new ResponseEntity<>(cartService.findAllCarts(), HttpStatus.OK);
     }
 }
