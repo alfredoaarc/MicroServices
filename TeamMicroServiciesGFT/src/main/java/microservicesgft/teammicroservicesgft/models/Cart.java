@@ -1,4 +1,5 @@
 package microservicesgft.teammicroservicesgft.models;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,12 +10,15 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "cart")
 public class Cart {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "cart_id")
     private int cartId;
+
     @Column(name = "user_id")
     private int userId;
+
     @Column(name = "products", columnDefinition = "TEXT")
     private String products;
 
@@ -60,7 +64,4 @@ public class Cart {
     }
 }
 
-
-
-  
 

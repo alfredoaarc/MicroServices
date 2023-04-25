@@ -20,5 +20,8 @@ public class CartService {
 
     }
 
+public Cart createCart(Cart cart){
+    return cartRepository.save(cart);
     
+}
 }
