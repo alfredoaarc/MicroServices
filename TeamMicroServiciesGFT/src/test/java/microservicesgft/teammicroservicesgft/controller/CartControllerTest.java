@@ -73,6 +73,79 @@ public class CartControllerTest {
         
         verify(cartService, times(1)).createCart(any(Cart.class));
     }
+
+    @Test
+    public void testUpdateCart() throws Exception {
+        Cart mockCart = new Cart();
+        mockCart.setCartId(1);
+        mockCart.setUserId(1);
+        mockCart.setProducts("product 1");
+        
+        when(cartService.updateCart(any(Cart.class))).thenReturn(mockCart);
+        
+        Cart putCart = new Cart();
+        putCart.setCartId(1);
+        putCart.setUserId(1);
+        putCart.setProducts("product 2");
+        
+        mockMvc.perform(put("/cart/updatecart")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(putCart)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.cartId", is(1)))
+                .andExpect(jsonPath("$.userId", is(1)))
+                .andExpect(jsonPath("$.products", is("product 1")));
+        
+        verify(cartService, times(1)).updateCart(any(Cart.class));
+    }
+
+    @Test
+    public void testFindAllCarts() throws Exception {
+        Cart mockCart1 = new Cart();
+        mockCart1.setCartId(1);
+        mockCart1.setUserId(1);
+        mockCart1.setProducts("product 1");
+    
+        Cart mockCart2 = new Cart();
+        mockCart2.setCartId(2);
+        mockCart2.setUserId(2);
+        mockCart2.setProducts("product 2");
+    
+        List<Cart> mockCartList = new ArrayList<>();
+    mockCartList.add(mockCart1);
+    mockCartList.add(mockCart2);
+    
+    when(cartService.findAllCarts()).thenReturn(mockCartList);
+    
+    mockMvc.perform(get("/cart/api/cart"))
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$", hasSize(2)))
+            .andExpect(jsonPath("$[0].cartId", is(1)))
+            .andExpect(jsonPath("$[0].userId", is(1)))
+            .andExpect(jsonPath("$[0].products", is("product 1")))
+            .andExpect(jsonPath("$[1].cartId", is(2)))
+            .andExpect(jsonPath("$[1].userId", is(2)))
+            .andExpect(jsonPath("$[1].products", is("product 2")));
+    
+    verify(cartService, times(1)).findAllCarts();
+    }
+
+    @Test
+    public void testDeleteCart() throws Exception {
+    int itemId = 1;
+    
+    doNothing().when(cartService).deleteCart(itemId);
+    
+    mockMvc.perform(delete("/cart/deletecart/{item_id}", itemId))
+            .andExpect(status().isNoContent());
+    
+    verify(cartService, times(1)).deleteCart(itemId);
+    }
+
+
+
+    
+    
     
 
 }
