@@ -1,11 +1,17 @@
 package microservicesgft.teammicroservicesgft.models;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 
 @Entity
 @Table(name = "cart")
@@ -20,18 +26,19 @@ public class Cart {
     private int userId;
 
     @Column(name = "products", columnDefinition = "TEXT")
-    private String products;
+    private List<Product> products;
 
-    public Cart() {}
+    public Cart() {
+    }
 
-    public Cart(int cartId, int userId, String products) {
+    public Cart(int cartId, int userId, List<Product> products) {
         this.cartId = cartId;
         this.userId = userId;
         this.products = products;
     }
 
     public int getCartId() {
-        return cartId;
+        return this.cartId;
     }
 
     public void setCartId(int cartId) {
@@ -39,29 +46,34 @@ public class Cart {
     }
 
     public int getUserId() {
-        return userId;
+        return this.userId;
     }
 
     public void setUserId(int userId) {
         this.userId = userId;
     }
 
-    public String getProducts() {
-        return products;
+    public List<Product> getProducts() {
+        return this.products;
     }
 
-    public void setProducts(String products) {
+    public void setProducts(List<Product> products) {
         this.products = products;
     }
 
+
+
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("Cart ID: ").append(cartId).append("\n");
-        sb.append("User ID: ").append(userId).append("\n");
-        sb.append("Products: ").append(products);
-        return sb.toString();
+        return "{" +
+            " cartId='" + getCartId() + "'" +
+            ", userId='" + getUserId() + "'" +
+            ", products='" + getProducts() + "'" +
+            "}";
     }
-}
+ 
+    
 
+}
+   
 

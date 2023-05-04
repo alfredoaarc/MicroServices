@@ -1,0 +1,72 @@
+[
+    {
+        "itemId": 1,
+        "name": "Product 1",
+        "description": "Description for product 1",
+        "price": 9.99,
+        "stock": 50
+    },
+    {
+        "itemId": 2,
+        "name": "Product 2",
+        "description": "Description for product 2",
+        "price": 19.99,
+        "stock": 100
+    },
+    {
+        "itemId": 3,
+        "name": "Product 3",
+        "description": "Description for product 3",
+        "price": 29.99,
+        "stock": 75
+    },
+    {
+        "itemId": 4,
+        "name": "Product 4",
+        "description": "Description for product 4",
+        "price": 39.99,
+        "stock": 25
+    },
+    {
+        "itemId": 5,
+        "name": "Product 5",
+        "description": "Description for product 5",
+        "price": 49.99,
+        "stock": 10
+    },
+    {
+        "itemId": 6,
+        "name": "Product 6",
+        "description": "Description for product 6",
+        "price": 59.99,
+        "stock": 200
+    },
+    {
+        "itemId": 7,
+        "name": "Product 7",
+        "description": "Description for product 7",
+        "price": 69.99,
+        "stock": 150
+    },
+    {
+        "itemId": 8,
+        "name": "Product 8",
+        "description": "Description for product 8",
+        "price": 79.99,
+        "stock": 5
+    },
+    {
+        "itemId": 9,
+        "name": "Product 9",
+        "description": "Description for product 9",
+        "price": 89.99,
+        "stock": 20
+    },
+    {
+        "itemId": 10,
+        "name": "Product 10",
+        "description": "Description for product 10",
+        "price": 99.99,
+        "stock": 30
+    }
+]

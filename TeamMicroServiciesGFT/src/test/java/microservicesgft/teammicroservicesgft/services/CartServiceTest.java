@@ -3,6 +3,7 @@ package microservicesgft.teammicroservicesgft.services;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -16,8 +17,15 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import microservicesgft.teammicroservicesgft.models.Cart;
+import microservicesgft.teammicroservicesgft.models.Product;
 import microservicesgft.teammicroservicesgft.repositories.CartRepository;
+import java.io.IOException;
+
+
+import com.fasterxml.jackson.core.type.TypeReference;
 
 import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.*;
@@ -42,22 +50,30 @@ public class CartServiceTest {
     private CartService cartService;
     @Mock
     private CartRepository cartRepository;
+    ObjectMapper objectMapper = new ObjectMapper();
+    File file = new File("C:/MicroServicesGit/MicroServices/TeamMicroServiciesGFT/src/main/resources/products.json");
+
+
 
     List<Cart> carts = new ArrayList<>();
+    List<Product> products;
+
 
     @BeforeEach
     void setup() {
+try {
+    products = objectMapper.readValue(new File("C:/MicroServicesGit/MicroServices/TeamMicroServiciesGFT/src/main/resources/products.json"), new TypeReference< List<Product>>(){});
+} catch (IOException e) {
+    e.printStackTrace();
+}
 
-        carts.add(new Cart(3, 5, "product 1"));
-        carts.add(new Cart(1, 4, "product 2"));
+
     }
     @Test
 
     public void findAllCarts() {
     // Crear una lista de Cart para simular la respuesta del repositorio
     List<Cart> expectedCarts = new ArrayList<>();
-    expectedCarts.add(new Cart(3, 5, "product 1"));
-    expectedCarts.add(new Cart(1, 4, "product 2"));
     
     // Configurar el mock del repositorio para que devuelva la lista esperada
     when(cartRepository.findAll()).thenReturn(expectedCarts);
@@ -76,7 +92,7 @@ public class CartServiceTest {
 
     @Test
     public void createCart() {
-    Cart newCart = new Cart(1, 10, "new product");
+    Cart newCart = new Cart(1, 10, products);
     when(cartRepository.save(any(Cart.class))).thenReturn(newCart);
     Cart savedCart = cartService.createCart(newCart);
     assertEquals(newCart, savedCart);
@@ -86,7 +102,7 @@ public class CartServiceTest {
     @Test
 
     public void updateCart_existingCart() {
-    Cart cartToUpdate = new Cart(1, 10, "product to update");
+    Cart cartToUpdate = new Cart(1, 10, products);
     when(cartRepository.existsById(cartToUpdate.getCartId())).thenReturn(true);
     when(cartRepository.save(any(Cart.class))).thenReturn(cartToUpdate);
     Cart updatedCart = cartService.updateCart(cartToUpdate);
@@ -96,7 +112,7 @@ public class CartServiceTest {
 
     @Test
     public void updateCart_nonExistingCart() {
-    Cart cartToUpdate = new Cart(99, 10, "product to update");
+    Cart cartToUpdate = new Cart(99, 10, products);
     when(cartRepository.existsById(cartToUpdate.getCartId())).thenReturn(false);
     assertThrows(ResponseStatusException.class, () -> cartService.updateCart(cartToUpdate),
         "Product does not exist");
@@ -106,7 +122,7 @@ public class CartServiceTest {
     @Test
     public void deleteCart_existingCart() {
     int cartId = 3;
-    Cart cartToDelete = new Cart(cartId, 5, "product to delete");
+    Cart cartToDelete = new Cart(cartId, 5, products);
     when(cartRepository.findById(cartId)).thenReturn(Optional.of(cartToDelete));
     doNothing().when(cartRepository).delete(cartToDelete);
     cartService.deleteCart(cartId);
